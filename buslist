@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define BOYUT 5
+
+struct Node {
+	char yolcuadi[15];
+	char yolcusoyadi[15];
+	struct Node *Link ;
+}yolcu [BOYUT];
+
+struct Node * root=NULL;
+void yolcuList(){
+	if(root==NULL){
+		printf("otobus bos");
+		return;
+	}
+	struct Node *n;
+	n=root;
+	int i=0;
+	
+	while(n!=NULL && i!=BOYUT*BOYUT)
+	{
+		printf("%d nolu yolcu\t-\tyolcu adi: %s\t-\tyolcu soyadi:%s\n",i+1,n->yolcuadi,n->yolcusoyadi);
+		n=n->Link;
+		i++;
+		if(i%BOYUT==0)
+		{
+			printf("\n****************************%d. otobus doldu************************************\n",i/BOYUT);
+		}
+	}
+}
+
+void ListeyeEkle(){
+	struct Node *temp=NULL;
+	temp=(struct Node *)malloc(sizeof(struct Node));
+	printf("lutfen yolcu ismi giriniz :  ");
+	scanf("%s",&temp->yolcuadi);
+	printf("lutfen yolcu soy ismini giriniz  :  ");
+	scanf("%s",&temp->yolcusoyadi);
+	temp->Link=NULL;
+	if(root==NULL){
+		root=temp;
+	}
+	else{
+		struct Node *p;
+		p=root;
+		while(p->Link!=NULL){
+			p=p->Link;
+		}
+		p->Link=temp;
+		if(root==NULL){
+			printf("otobus bos");
+			return;
+		}
+	}
+}
+int main() {
+	int ch;
+	while(1){
+		printf("1- yolcu ekle \n");
+		printf("2- yolcu listesini yazdir\n");
+		printf("3- cikis\n");
+		scanf("%d",&ch);
+		
+	switch(ch){
+		case 1:
+			ListeyeEkle();
+			break;
+		case 2:
+			yolcuList();
+			break;
+		case 3:
+			return 0;
+	}
+	}
+	return 0;
+}
